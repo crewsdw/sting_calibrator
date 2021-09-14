@@ -18,11 +18,13 @@ load_values = ['00', '10', '20', '30', '220', '210', '200']
 for group in load_groups:
     for load in load_values:
         print('\n\nCurrent group: ' + group + ' and load ' + load)
-        print('Configure experiment, then press enter to read data.')
-        input()
+        # print('Configure experiment, then press any key to read data.')
+        plotter = my_plt.Plotter()
+        daq_channels = ch.ChannelLogger(filename=group, mode=mode, group_name=load)
+        plotter.continuous_plotting(daq_channels=daq_channels)
         print('Reading data... wait until next prompt to proceed.')
         # Set up channel logger
-        daq_channels = ch.ChannelLogger(filename=group, mode=mode, group_name=load)
+        # daq_channels = ch.ChannelLogger(filename=group, mode=mode, group_name=load)
         if mode == 'read':
             # Read load cells
             daq_channels.configure_loads()
